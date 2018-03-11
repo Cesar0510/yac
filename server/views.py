@@ -1,11 +1,16 @@
 
-
-
 from app import app,socketio
 from flask_socketio import send,emit
 from flask_socketio import join_room, leave_room
 
 from flask import render_template
+
+users = set()
+
+
+@socketio.on('connect')
+def connectHandler(message="Client on"):
+    print('connect message: ' + str(message))
 
 
 @socketio.on('message')
@@ -14,8 +19,9 @@ def handle_message(message):
 
 @socketio.on('chat message')
 def chatHandler(message):
-    if len(message) > 0:
-        emit('chat message',message)    
+    users.add(message['users'])
+    if len(message['data']) > 0:
+        emit('chat message',message)
     print('received message: ' + str(message))
 
 @socketio.on('join')
