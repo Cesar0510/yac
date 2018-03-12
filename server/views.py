@@ -7,11 +7,9 @@ from flask import render_template
 
 users = set()
 
-
 @socketio.on('connect')
-def connectHandler(message="Client on"):
-    print('connect message: ' + str(message))
-
+def connectHandler(m=''):
+    print('connect message => {0}'.format(m) )
 
 @socketio.on('message')
 def handle_message(message):
@@ -24,19 +22,12 @@ def chatHandler(message):
         emit('chat message',message)
     print('received message: ' + str(message))
 
-@socketio.on('join')
-def on_join(data):
-    username = data['username']
-    room = data['room']
-    join_room(room)
-    send(username + ' has entered the room.', room=room)
+@socketio.on('echo')
+def echoHanlder(message):
+    emit('echo',message)
 
-@socketio.on('leave')
-def on_leave(data):
-    username = data['username']
-    room = data['room']
-    leave_room(room)
-    send(username + ' has left the room.', room=room)
+
+
 
 
 @app.route('/')
