@@ -1,21 +1,27 @@
 import React, {Component} from 'react';
 export  class ChatSection extends Component {
-   render() {
-     let messagesList = []
-     return (
+  constructor(props){
+    super(props);
+    this.state = {
+      messages: []
+    }
+  }
+
+  render() {
+  let {messages} = this.props
+    return (
       <div className="panel-body">
         <ul className="chat">
-          <ChatList messages={messagesList}/>
+          <ChatList messages={messages}/>
         </ul>
       </div>
-      )
-   }
+    )
+  }
 }
 
 
 class ChatList  extends Component {
   render()  {
-    console.log(this.props.recive('chat message'));
     return(
       this.props.messages.map((message,index) =>{
         return (<Chat key={index} id={index} message={message}/>)
@@ -29,7 +35,6 @@ class ChatList  extends Component {
 class Chat  extends Component {
   render() {
     let message  = this.props.message
-    console.log(this.props);
     return (
     <li className="left clearfix"><span className="chat-img pull-left">
       <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" className="img-circle" />

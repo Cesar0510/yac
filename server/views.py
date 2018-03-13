@@ -5,30 +5,19 @@ from flask_socketio import join_room, leave_room
 
 from flask import render_template
 
-users = set()
-
 @socketio.on('connect')
-def connectHandler(m=''):
-    print('connect message => {0}'.format(m) )
+def handler_connect():
+    print('ON => connect')
+
+@socketio.on('register')
+def handler_message(message):
+    print('on register\nreceived message:' + str(message))
 
 @socketio.on('message')
-def handle_message(message):
-    print('received message: ' + str(message))
-
-@socketio.on('chat message')
-def chatHandler(message):
-    users.add(message['users'])
-    if len(message['data']) > 0:
-        emit('chat message',message)
-    print('received message: ' + str(message))
-
-@socketio.on('echo')
-def echoHanlder(message):
-    emit('echo',message)
-
-
-
-
+def handler_message(message):
+    if len(message) > 0:
+        emit('chat message', message)
+        print('==> message\nreceived message:' + str(message))
 
 @app.route('/')
 def homepage():

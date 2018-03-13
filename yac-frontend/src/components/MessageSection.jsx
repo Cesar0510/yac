@@ -11,25 +11,24 @@ export  class MessageSection extends Component {
       //Methods
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-
     }
+    // vars
 
     handleChange(event) {
       this.setState({value: event.target.value});
     }
 
     handleSubmit(event) {
-      let {username} = this.props.username
-      if(!username){
-        username = prompt("Please enter your name", "username");
-        this.props.editUsername(username)
+      let user = this.props.username
+      if(!user){
+        user = prompt("Please enter your name", "username");
+        this.props.editUsername(user)
       }
-      console.log(username)
-        this.props.emit('message',{ msg: this.state.value, username: username });
-        this.setState({value:'' });
-        event.preventDefault();
+      console.log('send msg');
+      this.props.emit('message',{ msg: this.state.value, username: user });
+      this.setState({value:'' });
+      event.preventDefault();
     }
-
 
   // Render
   render() {

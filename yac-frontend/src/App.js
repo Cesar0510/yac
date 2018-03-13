@@ -12,34 +12,47 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      username:''
+      username:'',
+      messages: []
     }
     this.editUsername = this.editUsername.bind(this)
     this.emit = this.emit.bind(this)
-    this.recive = this.recive.bind(this)
+    this.onMessage = this.onMessage.bind(this)
+
   }
   componentDidMount() {
-    //conn.on('connect', () => { conn.emit('message', {data: conn.id}); });
+    conn.on('connect', () => {
+       this.emit('message', {id: conn.id})
+     });
   }
+
   editUsername(u){
     this.setState({username:u})
   }
-  emit(ch,msg){ conn.emit(ch,msg) }
-  recive(ch){ conn.on(ch, msj =>{
-    return msj.data
-  })}
 
+  emit(ch,msg){
+    conn.emit(ch,msg)
+  }
+
+  onMessage(){
+    conn.on('chat message', (msg) => {
+      let msgs = this.state.messages
+      msgs.push(msg)
+      this.setState({msgs})
+  })
+}
 
    render() {
-     console.log('app js');
       return (
+
          <div className="container">
             <Narbar title="Simple Chat" {...this.state} />
             <ChatSection
-              recive={this.recive}
+              {...this.state}
+              onMessage={this.onMessage}
               />
             <MessageSection
-              {...this.state}
+              { ...this.state }
               editUsername={this.editUsername}
               emit={this.emit}
             />
