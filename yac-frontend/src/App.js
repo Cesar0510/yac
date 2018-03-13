@@ -29,7 +29,7 @@ class App extends Component {
       conn.on('chat message', msg => {
         let {messages} = this.state;
         messages.push(msg);
-        this.setState(prevState => ({messages}))
+        this.setState({messages})
       })
     })
   }
