@@ -25,7 +25,7 @@ export  class MessageSection extends Component {
         this.props.editUsername(user)
       }
       console.log('send msg');
-      this.props.emit('message',{ msg: this.state.value, username: user });
+      this.props.emit('message',{ message: this.state.value, username: user });
       this.setState({value:'' });
       event.preventDefault();
     }

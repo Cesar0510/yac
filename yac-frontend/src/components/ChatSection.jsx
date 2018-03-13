@@ -35,16 +35,17 @@ class ChatList  extends Component {
 class Chat  extends Component {
   render() {
     let message  = this.props.message
+
     return (
     <li className="left clearfix"><span className="chat-img pull-left">
       <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" className="img-circle" />
     </span>
     <div className="chat-body clearfix">
       <div className="header">
-        <strong className="primary-font">{ message.name }</strong> <small className="pull-right text-muted">
+        <strong className="primary-font">{ message.username }</strong> <small className="pull-right text-muted">
           <span className="glyphicon glyphicon-time"></span>{new Date().toLocaleTimeString()}</small>
         </div>
-        <p> {message.data} </p>
+        <p> {message.message} </p>
       </div>
     </li>
     )
