@@ -13,17 +13,31 @@ class App extends Component {
     super(props);
     this.state = {
       username:'',
-      messages: []
+      messages: [],
+
     }
     this.editUsername = this.editUsername.bind(this)
     this.emit = this.emit.bind(this)
     this.onMessage = this.onMessage.bind(this)
+    this.addMessage = this.addMessage.bind(this)
 
   }
   componentDidMount() {
     conn.on('connect', () => {
-       this.emit('message', {id: conn.id})
-     });
+      console.log('a user connected');
+      conn.on('disconnect', () => { console.log('user disconnected'); });
+      conn.on('chat message', msg => {
+        let {messages} = this.state;
+        messages.push(msg);
+        this.setState(prevState => ({messages}))
+      })
+    })
+  }
+
+  addMessage(msg){
+    let {messages} = this.state;
+    messages.push(msg);
+    this.setState(prevState => ({messages}));
   }
 
   editUsername(u){

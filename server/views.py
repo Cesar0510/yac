@@ -9,6 +9,11 @@ from flask import render_template
 def handler_connect():
     print('ON => connect')
 
+
+@socketio.on('disconnect')
+def handler_connect():
+    print('OFF => disconnect')
+
 @socketio.on('register')
 def handler_message(message):
     print('on register\nreceived message:' + str(message))
