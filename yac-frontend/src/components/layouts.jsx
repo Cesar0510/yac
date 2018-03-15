@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-//import axios from 'axios';
+import axios from 'axios';
 
 
 export class Narbar extends Component {
@@ -30,9 +30,28 @@ export class LoginComponent extends Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.user);
-    this.props.addUsername(this.state.user)
+
+     axios.post('http://localhost:5000/api/login', {
+       username: this.state.user,
+    }).then(response => {
+      if(response.data.register === 'true'){
+        this.props.addUsername(this.state.user)
+      }
+    })
     event.preventDefault();
+    //   if(response.data.register){
+    //     this.props.addUsername(this.state.user)
+    //     event.preventDefault();
+    //   };
+    //   if(!response.data.register){
+    //     console.log('no update')
+    //   };
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+
+
   }
 
 
