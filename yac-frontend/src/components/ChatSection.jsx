@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
+
+
 export  class ChatSection extends Component {
    render() {
-     let messagesList = []
+
      return (
       <div className="panel-body">
         <ul className="chat">
-          <ChatList messages={messagesList}/>
+          <ChatList messages={this.props.messages}/>
         </ul>
       </div>
       )

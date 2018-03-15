@@ -16,17 +16,13 @@ export  class MessageSection extends Component {
 
     handleChange(event) {
       this.setState({value: event.target.value});
+      event.preventDefault();
     }
 
     handleSubmit(event) {
-      let {username} = this.props.username
-      if(!username){
-        username = prompt("Please enter your name", "username");
-        this.props.editUsername(username)
-      }
-      console.log(username)
-        this.setState({value:'' });
-        event.preventDefault();
+      this.props.addMessage({data:this.state.value,name:this.props.username});
+      this.setState({value:'' });
+      event.preventDefault();
     }
 
 

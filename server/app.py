@@ -7,10 +7,13 @@
 
 from flask import Flask
 from flask_socketio import SocketIO
+from flask_cors import CORS
 
 from config import Development
 
 app = Flask(__name__)
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app)
 app.config.from_object(Development)
 socketio = SocketIO(app)
 
