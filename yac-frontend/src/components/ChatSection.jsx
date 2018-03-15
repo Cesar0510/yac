@@ -15,7 +15,6 @@ export  class ChatSection extends Component {
 
 class ChatList  extends Component {
   render()  {
-    console.log(this.props.recive('chat message'));
     return(
       this.props.messages.map((message,index) =>{
         return (<Chat key={index} id={index} message={message}/>)

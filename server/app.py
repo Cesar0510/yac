@@ -5,8 +5,8 @@
 # Licence:     BSD 3-Clause License
 #---------------------------------------------
 
-from flask import Flask, render_template
-from flask_socketio import SocketIO, emit
+from flask import Flask
+from flask_socketio import SocketIO
 
 from config import Development
 
