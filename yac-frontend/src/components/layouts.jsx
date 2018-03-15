@@ -19,7 +19,8 @@ export class LoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user:''
+      user:'',
+      valid:true
     };
     //Methods
     this.handleChange = this.handleChange.bind(this);
@@ -36,31 +37,22 @@ export class LoginComponent extends Component {
     }).then(response => {
       if(response.data.register === 'true'){
         this.props.addUsername(this.state.user)
+      } else{
+        this.setState({valid:false})
       }
     })
     event.preventDefault();
-    //   if(response.data.register){
-    //     this.props.addUsername(this.state.user)
-    //     event.preventDefault();
-    //   };
-    //   if(!response.data.register){
-    //     console.log('no update')
-    //   };
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
-
-
   }
 
 
   render(){
+    let {valid} = this.state
     return (
       <div className="col-md-4 col-md-offset-4">
         <div className="login-panel panel panel-default">
           <div className="panel-heading">
             <h3 className="panel-title">Please Sign In</h3>
+           { valid ? (<div></div>) : (<div className="alert alert-warning" role="alert"> Try whith other username </div>)}
           </div>
           <div className="panel-body">
             <form onSubmit={this.handleSubmit} >
